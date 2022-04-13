@@ -1,5 +1,5 @@
-import { Form, Row, Col, Space, Table, Radio } from "antd";
-import { EditOutlined } from "@ant-design/icons";
+import { Form, Table, notification } from "antd";
+import { EditOutlined, WarningOutlined } from "@ant-design/icons";
 import "../containersCommonFile/container.css";
 import { useState } from "react";
 import { FieldData } from "../containersCommonFile/containerInterface";
@@ -22,30 +22,48 @@ export default function ContainerInfoVacation() {
     rowSelection: undefined,
   });
 
+  const convertStringDate = (dateString) => {
+    const strDate = dateString;
+    const dateStr =
+      strDate.substring(6, 10) +
+      "," +
+      strDate.substring(3, 5) +
+      "," +
+      strDate.substring(0, 2);
+    const dateRef = new Date(dateStr);
+    console.log(dateStr);
+    console.log(dateRef);
+
+    return dateRef;
+  };
+
   const data = [
     {
       key: 1,
       status: "Definido",
+      perAqIn: "01/04/2022",
+      perAqEnd: "30/04/2022",
       dateIn: "",
       dateEnd: "",
       day: "30",
-      salary13: "Sim",
-      allowence: "Sim",
-      advance: "Sim",
+      salary13: "",
+      allowence: "",
       part: "3",
       children: [
         {
           key: 11,
           part: "1",
-          dateIn: "12/05/2022",
-          dateEnd: "27/05/2022",
+          dateIn: "04/07/2022",
+          dateEnd: "19/07/2022",
+          salary13: "Sim",
+          allowence: "",
           day: "15",
         },
         {
           key: 12,
           part: "2",
-          dateIn: "11/07/2022",
-          dateEnd: "21/07/2022",
+          dateIn: "01/08/2022",
+          dateEnd: "11/08/2022",
           day: "10",
         },
         {
@@ -53,6 +71,8 @@ export default function ContainerInfoVacation() {
           part: "3",
           dateIn: "06/09/2022",
           dateEnd: "11/09/2022",
+          salary13: "",
+          allowence: "Sim",
           day: "5",
         },
       ],
@@ -60,12 +80,13 @@ export default function ContainerInfoVacation() {
     {
       key: 1,
       status: "Aberto",
+      perAqIn: "01/04/2022",
+      perAqEnd: "30/04/2022",
       dateIn: "",
       dateEnd: "",
       day: "30",
       salary13: "",
       allowence: "",
-      advance: "",
       part: "",
     },
   ];
@@ -74,6 +95,16 @@ export default function ContainerInfoVacation() {
     {
       title: "Situação",
       dataIndex: "status",
+      key: "key",
+    },
+    {
+      title: "Período Aquisitivo Inicio",
+      dataIndex: "perAqIn",
+      key: "key",
+    },
+    {
+      title: "Período Aquisitivo Final",
+      dataIndex: "perAqEnd",
       key: "key",
     },
     {
@@ -101,11 +132,7 @@ export default function ContainerInfoVacation() {
       dataIndex: "allowence",
       key: "key",
     },
-    {
-      title: "Adiantamento",
-      dataIndex: "advance",
-      key: "key",
-    },
+
     {
       title: "Parcelas",
       dataIndex: "part",
@@ -114,14 +141,53 @@ export default function ContainerInfoVacation() {
     {
       title: "Ação",
       key: "action",
-      render: (name) =>
-        name.status === "Definido" || name.status === "Aberto" ? (
-          <a>
-            <EditOutlined />
-          </a>
-        ) : (
-          <a></a>
-        ),
+      render: (name) => {
+        const dateNow = new Date(Date.now());
+        const dateBegin = convertStringDate(name.perAqIn);
+        const dateEnd = convertStringDate(name.perAqEnd);
+        console.log(dateNow > dateBegin && dateNow < dateEnd);
+        console.log(dateBegin);
+        console.log(dateEnd);
+        console.log(name.part > 1);
+
+        if (dateNow > dateBegin && dateNow < dateEnd) {
+          if (name.part > 1) {
+            let dateRef = convertStringDate(name.children[0].dateIn);
+
+            dateRef.setDate(dateRef.getDate() - 60);
+            console.log(name.children[0].dateIn);
+            if (dateNow < dateRef) {
+              return (
+                <a>
+                  <EditOutlined />
+                </a>
+              );
+            } else {
+              return <a></a>;
+            }
+          } else if (name.part === 1) {
+            console.log("teste");
+            let dateRef = convertStringDate(name.dateIn);
+            dateRef.setDate(dateRef.getDate() - 60);
+            if (dateNow < dateRef) {
+              return (
+                <a>
+                  <EditOutlined />
+                </a>
+              );
+            } else {
+              return;
+              <a></a>;
+            }
+          } else {
+            return (
+              <a>
+                <EditOutlined />
+              </a>
+            );
+          }
+        }
+      },
     },
   ];
 
@@ -141,8 +207,6 @@ export default function ContainerInfoVacation() {
         <legend>Informações de Férias</legend>
         <Form
           name="formInfoVacation"
-          labelCol={{ span: 12 }}
-          wrapperCol={{ span: 13 }}
           labelAlign="left"
           form={form}
           onFieldsChange={(_, allfields) => {
@@ -150,39 +214,19 @@ export default function ContainerInfoVacation() {
             console.log(allfields);
           }}
         >
-          <Row gutter={20}>
-            <Col span={24}>
-              <Form.Item
-                name={"who"}
-                label={"Solicitação de Férias"}
-                labelAlign="left"
-              >
-                <Radio.Group defaultValue="ownVacation" buttonStyle="solid">
-                  <Radio.Button value={"ownVacation"}>Própria</Radio.Button>
-                  <Radio.Button
-                    value={"employeeVacation"}
-                    style={{ marginLeft: "200px" }}
-                  >
-                    Colaborador
-                  </Radio.Button>
-                </Radio.Group>
-              </Form.Item>
-            </Col>
-          </Row>
           <Form.Item name={"tableInfo"}></Form.Item>
-          <Space>
-            <Table
-              {...tableConfig}
-              pagination={false}
-              dataSource={data}
-              columns={columns}
-              onRow={(record, index) => {
-                return {
-                  onClick: (event) => onRowSelection(record, index),
-                };
-              }}
-            />
-          </Space>
+
+          <Table
+            {...tableConfig}
+            pagination={false}
+            dataSource={data}
+            columns={columns}
+            onRow={(record, index) => {
+              return {
+                onClick: (event) => onRowSelection(record, index),
+              };
+            }}
+          />
         </Form>
       </fieldset>
     </>

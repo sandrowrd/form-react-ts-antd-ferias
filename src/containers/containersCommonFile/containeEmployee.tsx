@@ -19,6 +19,7 @@ export default function ContainerEmployee() {
       <fieldset>
         <legend>Informações do Colaborador</legend>
         <Form
+          name="formEmployee"
           labelCol={{ span: 10 }}
           wrapperCol={{ span: 12 }}
           labelAlign="left"
@@ -83,31 +84,6 @@ export default function ContainerEmployee() {
           <Row gutter={20}>
             <Col span={12}>
               <Form.Item name={["bossEmployee"]} label={"Superior Imediato"}>
-                <Input readOnly />
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item name={["custCenter"]} label={"Centro de Custo"}>
-                <Input readOnly />
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={20}>
-            <Col span={12}>
-              <Form.Item name={["localWork"]} label={"Posto de Trabalho"}>
-                <Input readOnly />
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item name={["salary"]} label={"Salário Atual"}>
-                <Input readOnly />
-              </Form.Item>
-            </Col>
-          </Row>
-
-          <Row gutter={20}>
-            <Col span={12}>
-              <Form.Item name={["workHours"]} label={"Jornada de Trabalho"}>
                 <Input readOnly />
               </Form.Item>
             </Col>

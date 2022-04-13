@@ -6,8 +6,8 @@ import {
   WfVariable,
   WorkflowCockpit,
   workflowCockpit,
-} from '@seniorsistemas/workflow-cockpit';
-import { WfUser } from './model/user';
+} from "@seniorsistemas/workflow-cockpit";
+import { WfUser } from "./model/user";
 
 type ErrorFunction = (
   proccessStep: WfProcessError,
@@ -25,8 +25,8 @@ interface ProccessVariables {
 
 export class WorkflowService {
   private static readonly EMPTY_PLATFORM_DATA: WfPlatformData = {
-    odataUrl: '',
-    serviceUrl: '',
+    odataUrl: "",
+    serviceUrl: "",
     token: undefined,
   };
 
@@ -68,7 +68,7 @@ export class WorkflowService {
    * caso o formulário seja inválido.
    */
   public abortSubmit(): void {
-    throw new Error('Ação cancelada.');
+    throw new Error("Ação cancelada.");
   }
 
   public requestPlatformDataAndVariables(): Promise<
@@ -98,8 +98,8 @@ export class WorkflowService {
       if (data) {
         const userData: WfUser = Object.assign(new WfUser(), data);
 
-        if (userData.username.indexOf('@') >= 0) {
-          userData.username = userData.username.split('@')[0];
+        if (userData.username.indexOf("@") >= 0) {
+          userData.username = userData.username.split("@")[0];
         }
 
         return userData;
@@ -120,12 +120,12 @@ export class WorkflowService {
   }
 
   public getToken(bearer = true): string {
-    const TOKEN = sessionStorage.getItem('senior-token');
+    const TOKEN = sessionStorage.getItem("senior-token");
     return bearer ? `Bearer ${TOKEN}` : TOKEN;
   }
 
   public getUser(): WfUser {
-    return JSON.parse(sessionStorage.getItem('userData')) as WfUser;
+    return JSON.parse(sessionStorage.getItem("userData")) as WfUser;
   }
 
   private parsePendencyData(pendencyData: WfVariable[]): ProccessVariables {
@@ -133,9 +133,9 @@ export class WorkflowService {
     for (const pendency of pendencyData) {
       const attr = pendency;
       if (
-        attr.type === 'Integer' ||
-        attr.type === 'Double' ||
-        attr.type === 'Float'
+        attr.type === "Integer" ||
+        attr.type === "Double" ||
+        attr.type === "Float"
       ) {
         data[attr.key] = parseFloat(attr.value);
       } else {

@@ -16,21 +16,6 @@ legend {
   text-align: left;
 }
 
-.CVCHeader {
-  background: linear-gradient(#69c0ff, white);
-  height: 150px;
-}
-
-.CVCFooter {
-  height: 150px;
-  background: linear-gradient(#d3f261, #ffffb8);
-}
-
-.CVCContent {
-  max-width: 1200;
-  margin: 50px 0 50px 100px;
-}
-
 .warningPanel {
   width: 95%;
   font-size: 12pt;
@@ -47,15 +32,4 @@ legend {
 
 .ant-col-10 {
   max-width: 70%;
-}
-
-.modo-box {
-  width: 90%;
-  height: 70%;
-  margin: 0 0 70px 0;
-  padding: 0 0 0 60px;
-}
-
-.check-Mode {
-  margin-bottom: 5px;
 }

@@ -6,11 +6,12 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": false,
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     /* Impede que tenha de informar o typo any */
     "noImplicitAny": false,
+    "strictPropertyInitialization": false, // adicione esta linha dentro do objeto `compilerOptions`
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
@@ -20,7 +21,8 @@
     /* Informando o diretório raiz */
     "rootDir": "src",
     /* Diretório onde será copilado os arquivos ts */
-    "outDir": "dist"
+    "outDir": "dist",
+    "strictNullChecks": false
   },
   "include": ["src"]
 }

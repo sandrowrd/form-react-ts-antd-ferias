@@ -13,18 +13,37 @@ export default function FormPageVacation() {
     show02: true,
   });
 
+  const [employee, setEmployee] = useState(true);
+
   return (
     <>
       <div>
-        <ContainerIdentify />
-        <ContainerEmployee />
+        <Form.Provider
+          onFormFinish={(name, { values, forms }) => {
+            console.log(name);
+            console.log(values);
+            console.log(values.who);
+            console.log(forms);
+            //const { formVacation } = forms;
+            if (name === "formIdentify" && values.who === "employeeVacation") {
+              setEmployee(false);
+            } else {
+              setEmployee(true);
+            }
+          }}
+        >
+          <ContainerIdentify />
+          <span hidden={employee}>
+            <ContainerEmployee />
+          </span>
+        </Form.Provider>
         <Form.Provider
           onFormFinish={(name, { values, forms }) => {
             console.log(name);
             console.log(values);
             console.log(forms);
             const { formVacation } = forms;
-            if (values.tableInfo) {
+            if (values.tableInfo.status === "Definido") {
               for (let i = 0; i < values.tableInfo.part; i++) {
                 formVacation.setFields([
                   {
@@ -44,8 +63,26 @@ export default function FormPageVacation() {
                   },
                 ]);
               }
+            } else if (values.tableInfo.status === "Aberto") {
+              formVacation.setFields([
+                {
+                  name: "vacationDays",
+                  value: values.tableInfo.day,
+                },
+                {
+                  name: "daysVacation01",
+                  value: values.tableInfo.day,
+                },
+                {
+                  name: "periodEnd",
+                  value: values.tableInfo.perAqEnd,
+                },
+                {
+                  name: "abono",
+                  value: 0,
+                },
+              ]);
             }
-
             formVacation.setFields([
               {
                 name: "dateBeginVacation01",
@@ -53,6 +90,10 @@ export default function FormPageVacation() {
                   values.tableInfo.children[0].dateIn,
                   "DD/MM/YYYY"
                 ),
+              },
+              {
+                name: "periodEnd",
+                value: values.tableInfo.perAqEnd,
               },
               {
                 name: "daysVacation01",
