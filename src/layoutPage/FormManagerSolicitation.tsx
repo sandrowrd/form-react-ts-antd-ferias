@@ -2,12 +2,11 @@ import ContainerIdentify from "../containers/containersCommonFile/containerIdent
 import ContainerEmployee from "../containers/containersCommonFile/containeEmployee";
 import ContainerInfoVacation from "../containers/containersVacation/containerInfoVacation";
 import ContainerVacation from "../containers/containersVacation/containerVacation";
-import ContainerObservation from "../containers/containersCommonFile/containerObservation";
 import { Form } from "antd";
 import moment from "moment";
 import { useState } from "react";
 
-export default function FormPageVacation() {
+export default function FormManagerSolicitation() {
   const [showRow, setShowRow] = useState({
     show01: true,
     show02: true,
@@ -32,7 +31,7 @@ export default function FormPageVacation() {
             }
           }}
         >
-          <ContainerIdentify />
+          <ContainerIdentify own={false} />
           <span hidden={employee}>
             <ContainerEmployee />
           </span>
@@ -151,7 +150,6 @@ export default function FormPageVacation() {
           <ContainerInfoVacation />
           <ContainerVacation ena={showRow} set={setShowRow} />
         </Form.Provider>
-        <ContainerObservation />
       </div>
     </>
   );

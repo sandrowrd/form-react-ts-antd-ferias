@@ -1,47 +1,29 @@
 import ContainerIdentify from "../containers/containersCommonFile/containerIdentify";
-import ContainerEmployee from "../containers/containersCommonFile/containeEmployee";
 import ContainerInfoVacation from "../containers/containersVacation/containerInfoVacation";
 import ContainerVacation from "../containers/containersVacation/containerVacation";
-import ContainerObservation from "../containers/containersCommonFile/containerObservation";
 import { Form } from "antd";
 import moment from "moment";
 import { useState } from "react";
 
-export default function FormPageVacation() {
+export default function FormOwnSolicitation() {
   const [showRow, setShowRow] = useState({
     show01: true,
     show02: true,
   });
 
-  const [employee, setEmployee] = useState(true);
+  const [employee, setEmployee] = useState(false);
 
   return (
     <>
       <div>
+        <Form.Provider>
+          <ContainerIdentify own={true} />
+        </Form.Provider>
         <Form.Provider
           onFormFinish={(name, { values, forms }) => {
             //console.log(name);
             //console.log(values);
-            //console.log(values.who);
             //console.log(forms);
-            //const { formVacation } = forms;
-            if (name === "formIdentify" && values.who === "employeeVacation") {
-              setEmployee(false);
-            } else {
-              setEmployee(true);
-            }
-          }}
-        >
-          <ContainerIdentify />
-          <span hidden={employee}>
-            <ContainerEmployee />
-          </span>
-        </Form.Provider>
-        <Form.Provider
-          onFormFinish={(name, { values, forms }) => {
-            console.log(name);
-            console.log(values);
-            console.log(forms);
             const { formVacation } = forms;
             const element = document.querySelector("span.ant-checkbox");
 
@@ -151,7 +133,6 @@ export default function FormPageVacation() {
           <ContainerInfoVacation />
           <ContainerVacation ena={showRow} set={setShowRow} />
         </Form.Provider>
-        <ContainerObservation />
       </div>
     </>
   );

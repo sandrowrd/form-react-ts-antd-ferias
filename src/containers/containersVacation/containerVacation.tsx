@@ -35,7 +35,7 @@ export default function ContainerVacation(props: any) {
     { name: "daysVacation03", value: "" },
     { name: "dateEndVacation03", value: "" },
     { name: "datePgto03", value: "" },
-    { name: "abono", value: 0 },
+    { name: "abonoPec", value: "" },
     { name: "dtsal", value: "" },
   ]);
 
@@ -69,7 +69,7 @@ export default function ContainerVacation(props: any) {
   const dateEnd = (date, days) => {
     let data = new Date(date);
     data.setDate(data.getDate() + days);
-    console.log(data.toLocaleDateString("en-GB"));
+    //console.log(data.toLocaleDateString("en-GB"));
     return data.toLocaleDateString("en-GB");
   };
 
@@ -92,7 +92,7 @@ export default function ContainerVacation(props: any) {
         ? 3
         : 0;
     dataPgo.setDate(dataPgo.getDate() - num);
-    console.log(dayWeek);
+    //console.log(dayWeek);
     return dataPgo.toLocaleDateString("en-GB");
   };
 
@@ -253,7 +253,7 @@ export default function ContainerVacation(props: any) {
           form={form}
           onFieldsChange={(_, allfields) => {
             setFieldsForm(allfields);
-            console.log(fieldsForm);
+            //console.log(fieldsForm);
           }}
         >
           <Col span={20}>
@@ -311,12 +311,12 @@ export default function ContainerVacation(props: any) {
             </Row>
             <Row>
               <Form.Item
-                name={"abono"}
+                name={"abonoPec"}
                 rules={[
                   ({ getFieldValue, setFieldsValue }) => ({
                     validator(_, value) {
-                      console.log(value);
-                      console.log(abono);
+                      //console.log(value);
+                      //console.log(abono);
 
                       if (abono) {
                         const third = (getFieldValue("vacationDays") / 3) * 2;
@@ -335,7 +335,13 @@ export default function ContainerVacation(props: any) {
                   }),
                 ]}
               >
-                <Checkbox onChange={(value) => setAbono(value.target.checked)}>
+                <Checkbox
+                  onChange={(value) => {
+                    setAbono(value.target.checked);
+                    //console.log(value);
+                  }}
+                  value={"checked"}
+                >
                   Abono
                 </Checkbox>
               </Form.Item>
@@ -362,7 +368,7 @@ export default function ContainerVacation(props: any) {
                           );
                           let datEnd = "";
                           const datePgo = datePgVacation(value._d);
-                          console.log(validDate);
+                          //console.log(validDate);
                           if (validDate) {
                             const vacationDay = getFieldValue("daysVacation01");
 
@@ -372,8 +378,8 @@ export default function ContainerVacation(props: any) {
                                 vacationDay
                               );
                             }
-                            console.log(datEnd);
-                            console.log(value._d);
+                            //console.log(datEnd);
+                            //console.log(value._d);
                             setFieldsValue({
                               dateEndVacation01: datEnd,
                               datePgto01: datePgo,

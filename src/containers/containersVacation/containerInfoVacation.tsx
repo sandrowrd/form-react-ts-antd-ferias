@@ -1,5 +1,5 @@
-import { Form, Table, notification } from "antd";
-import { EditOutlined, WarningOutlined } from "@ant-design/icons";
+import { Form, Table } from "antd";
+import { EditOutlined } from "@ant-design/icons";
 import "../containersCommonFile/container.css";
 import { useState } from "react";
 import { FieldData } from "../containersCommonFile/containerInterface";
@@ -31,8 +31,8 @@ export default function ContainerInfoVacation() {
       "," +
       strDate.substring(0, 2);
     const dateRef = new Date(dateStr);
-    console.log(dateStr);
-    console.log(dateRef);
+    //console.log(dateStr);
+    //console.log(dateRef);
 
     return dateRef;
   };
@@ -98,7 +98,7 @@ export default function ContainerInfoVacation() {
       key: "key",
     },
     {
-      title: "Período Aquisitivo Inicio",
+      title: "Período Aquisitivo Inicial",
       dataIndex: "perAqIn",
       key: "key",
     },
@@ -123,12 +123,12 @@ export default function ContainerInfoVacation() {
       key: "key",
     },
     {
-      title: "13 Salário",
+      title: "13° Salário",
       dataIndex: "salary13",
       key: "key",
     },
     {
-      title: "abono",
+      title: "Abono",
       dataIndex: "allowence",
       key: "key",
     },
@@ -145,17 +145,17 @@ export default function ContainerInfoVacation() {
         const dateNow = new Date(Date.now());
         const dateBegin = convertStringDate(name.perAqIn);
         const dateEnd = convertStringDate(name.perAqEnd);
-        console.log(dateNow > dateBegin && dateNow < dateEnd);
-        console.log(dateBegin);
-        console.log(dateEnd);
-        console.log(name.part > 1);
+        //console.log(dateNow > dateBegin && dateNow < dateEnd);
+        //console.log(dateBegin);
+        //console.log(dateEnd);
+        //console.log(name.part > 1);
 
         if (dateNow > dateBegin && dateNow < dateEnd) {
           if (name.part > 1) {
             let dateRef = convertStringDate(name.children[0].dateIn);
 
             dateRef.setDate(dateRef.getDate() - 60);
-            console.log(name.children[0].dateIn);
+            //console.log(name.children[0].dateIn);
             if (dateNow < dateRef) {
               return (
                 <a>
@@ -166,7 +166,7 @@ export default function ContainerInfoVacation() {
               return <a></a>;
             }
           } else if (name.part === 1) {
-            console.log("teste");
+            //console.log("teste");
             let dateRef = convertStringDate(name.dateIn);
             dateRef.setDate(dateRef.getDate() - 60);
             if (dateNow < dateRef) {
@@ -194,9 +194,9 @@ export default function ContainerInfoVacation() {
   const [form] = Form.useForm();
 
   const onRowSelection = (record, index) => {
-    console.log(index);
-    console.log(record);
-    console.log(record.part);
+    //console.log(index);
+    //console.log(record);
+    //console.log(record.part);
     form.setFieldsValue({ tableInfo: record });
     form.submit();
   };
@@ -211,7 +211,7 @@ export default function ContainerInfoVacation() {
           form={form}
           onFieldsChange={(_, allfields) => {
             setFields(allfields);
-            console.log(allfields);
+            //console.log(allfields);
           }}
         >
           <Form.Item name={"tableInfo"}></Form.Item>

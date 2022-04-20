@@ -3,7 +3,7 @@ import "./container.css";
 import { useState } from "react";
 import { FieldData } from "./containerInterface";
 
-export default function ContainerIdentify() {
+export default function ContainerIdentify(own) {
   const [fields, setFields] = useState<FieldData[]>([
     { name: "fullname", value: "" },
     { name: "registry", value: "" },
@@ -64,25 +64,27 @@ export default function ContainerIdentify() {
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item
-                name={"who"}
-                label={"Solicitação de Férias"}
-                labelAlign="left"
-              >
-                <Radio.Group
-                  defaultValue="ownVacation"
-                  buttonStyle="solid"
-                  onChange={onChangeRadio}
+              <span hidden={own.own}>
+                <Form.Item
+                  name={"who"}
+                  label={"Solicitação de Férias"}
+                  labelAlign="left"
                 >
-                  <Radio.Button value={"ownVacation"}>Própria</Radio.Button>
-                  <Radio.Button
-                    value={"employeeVacation"}
-                    style={{ marginLeft: "20px" }}
+                  <Radio.Group
+                    defaultValue="ownVacation"
+                    buttonStyle="solid"
+                    onChange={onChangeRadio}
                   >
-                    Colaborador
-                  </Radio.Button>
-                </Radio.Group>
-              </Form.Item>
+                    <Radio.Button value={"ownVacation"}>Própria</Radio.Button>
+                    <Radio.Button
+                      value={"employeeVacation"}
+                      style={{ marginLeft: "20px" }}
+                    >
+                      Colaborador
+                    </Radio.Button>
+                  </Radio.Group>
+                </Form.Item>
+              </span>
             </Col>
           </Row>
         </Form>
